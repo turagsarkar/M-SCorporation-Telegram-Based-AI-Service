@@ -1,0 +1,117 @@
+{
+  "name": "Error Handaling",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a9a8ec03-1761-4e1d-a593-5b61bfcb55f1",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0",
+          "mode": "list",
+          "cachedResultName": "MS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1347626405,
+          "mode": "list",
+          "cachedResultName": "Error",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0/edit#gid=1347626405"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Event Name ": "={{ $json.workflow.name }}",
+            "Error Message": "={{ $json.execution.error.message }}",
+            "URL": "={{ $json.execution.url }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Event Name ",
+              "displayName": "Event Name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Error Message",
+              "displayName": "Error Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        304,
+        -176
+      ],
+      "id": "2bd30fb3-0a76-45e4-a950-db23addb6fbc",
+      "name": "Log Error",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ywyt98N6AYDmcjfv",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Log Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "2a07d222-5786-460b-bc4c-2e914114fe78",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d2f4d364720983ef2739d5c152c0ad9e17b1643f02967dd81957a0ae01cfde3a"
+  },
+  "id": "xqm204xXfsH1Q6v9",
+  "tags": []
+}

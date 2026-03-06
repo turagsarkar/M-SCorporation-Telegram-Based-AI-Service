@@ -1,0 +1,413 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -672,
+        -96
+      ],
+      "id": "12c9d8b5-3a40-4b42-b09c-e5b9ede59e66",
+      "name": "Telegram Trigger",
+      "webhookId": "f3a387f3-c673-4cce-8e7b-dd218a1a7596",
+      "credentials": {
+        "telegramApi": {
+          "id": "1FfHeEGQqrpBPbP7",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        -96
+      ],
+      "id": "e26cc3fa-70e3-4675-bdb0-e824fcb2265b",
+      "name": "Send a text message",
+      "webhookId": "9f50a3bf-d2e4-4a5f-b0ac-00e78a2c45f6",
+      "credentials": {
+        "telegramApi": {
+          "id": "1FfHeEGQqrpBPbP7",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.from.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        288
+      ],
+      "id": "4f23c70e-210d-46fa-af45-48f4d80c7fb9",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get the data from inventory sheet ",
+        "documentId": {
+          "__rl": true,
+          "value": "1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0",
+          "mode": "list",
+          "cachedResultName": "MS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1910807323,
+          "mode": "list",
+          "cachedResultName": "Inventory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0/edit#gid=1910807323"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        672,
+        160
+      ],
+      "id": "3564e34c-1eb6-4e2c-a1d8-b49c516b1b3c",
+      "name": "Inventory",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "hmO57mFWy6yUdpGR",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "The Gmail node is used for sending confirmation emails.\n\nEmail content includes:\n\nCustomer Name\n\nProduct or service booked\n\nDate and time\n\nBooking reference",
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        176
+      ],
+      "id": "eb13e26e-76ce-423e-9b9f-35c1d9e7f188",
+      "name": "Order confirmation",
+      "webhookId": "01817bb3-0364-413f-962d-cb277c2b0960",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Dkr0k05JBE88FrRQ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Append or update row in sheet in Google Sheets",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0",
+          "mode": "list",
+          "cachedResultName": "MS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 186010214,
+          "mode": "list",
+          "cachedResultName": "Order History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0/edit#gid=186010214"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Customer Name ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Customer_Name___using_to_match_', ``, 'string') }}",
+            "Product Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_Name', ``, 'string') }}",
+            "Quantity": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Quantity', ``, 'string') }}",
+            "Date and time of booking ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Date_and_time_of_booking_', ``, 'string') }}",
+            "Refernece": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Refernece', ``, 'string') }}",
+            "Email Account": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email_Account', ``, 'string') }}",
+            "Total price": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Total_price', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Customer Name "
+          ],
+          "schema": [
+            {
+              "id": "Customer Name ",
+              "displayName": "Customer Name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product Name",
+              "displayName": "Product Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Quantity",
+              "displayName": "Quantity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date and time of booking ",
+              "displayName": "Date and time of booking ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Refernece",
+              "displayName": "Refernece",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email Account",
+              "displayName": "Email Account",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total price",
+              "displayName": "Total price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        464,
+        176
+      ],
+      "id": "190a9646-bd70-47ad-b50d-cb461d007345",
+      "name": "Order listing",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "hmO57mFWy6yUdpGR",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "needsFallback": true,
+        "options": {
+          "systemMessage": "You are an AI assistant for a Telegram-based service booking and product ordering system. Your primary role is to help customers browse available products or services, answer their questions, and guide them through the ordering or booking process in a clear and conversational manner. Product and service information is stored in a Google Sheet which includes product name, description, price, availability status, and service duration where applicable. When a user asks about products or services, retrieve the available inventory and present the list clearly with names, prices, and availability. If a user requests details about a specific item, provide the description, price, and availability information. When a user wants to place an order or book a service, guide them step by step by collecting the required information: customer name, email address, selected product or service, and preferred date and time if the item is a service. Confirm the selected item and collected information before finalizing the booking. After confirmation, the system will store the booking details in the booking database and trigger an email confirmation to the customer. If a product is unavailable, politely inform the user and suggest other available options. If the user asks common questions such as pricing, availability, service duration, or how to order, answer them based on the product data. Always maintain a helpful, friendly, and professional conversational tone. If required information is missing, ask the user politely to provide it. If an error occurs or information cannot be found, apologize and guide the user to try again or choose another product. Your goal is to make the booking and ordering process smooth, simple, and efficient for the user.\n\n\nYou are an AI assistant for a shop that sells tools and equipment.\n\nYour job is to help customers:\n1. Discover available products\n2. Answer product questions\n3. Guide them through the order process\n4. Collect booking/order information\n5. Confirm their order politely\n\nAlways respond in a friendly and simple conversational tone.\n\nYou must follow the rules and workflow below."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -48,
+        -96
+      ],
+      "id": "2978e4bf-983e-4d18-adc5-50dbdb3fd9e8",
+      "name": "MScorporation"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        208
+      ],
+      "id": "7fd029e0-87b9-4acf-8ac7-af35d584220a",
+      "name": "Groq Fallback",
+      "credentials": {
+        "groqApi": {
+          "id": "RLHunZKFIHtPuE4H",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -592,
+        208
+      ],
+      "id": "8cb8a56d-9464-427c-9fa8-d16050022d71",
+      "name": "OpenAI M/S model",
+      "credentials": {
+        "openAiApi": {
+          "id": "aAG2qS163m2t9XnX",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "MScorporation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "MScorporation",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inventory": {
+      "ai_tool": [
+        [
+          {
+            "node": "MScorporation",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order confirmation": {
+      "ai_tool": [
+        [
+          {
+            "node": "MScorporation",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order listing": {
+      "ai_tool": [
+        [
+          {
+            "node": "MScorporation",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MScorporation": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Fallback": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "MScorporation",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "OpenAI M/S model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "MScorporation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "28b1c298-8e98-476e-b080-395bc9fb8c60",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "49714f2a9d9c0a8a843f078b1924ac16dc57dd273d0d94ee3486776a0479eb76"
+  },
+  "id": "CLMuTY55EOP9JAU7",
+  "tags": []
+}
