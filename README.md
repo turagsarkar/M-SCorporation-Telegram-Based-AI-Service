@@ -10,9 +10,11 @@ https://docs.google.com/spreadsheets/d/1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5
 
 # Workflow - 
 
-![img alt] ()
+![img alt] (https://github.com/turagsarkar/M-SCorporation-Telegram-Based-AI-Service/blob/1a07760558b82a83e70799420acd5b0b07452c37/Workflow.PNG)
 
+![img alt] (https://github.com/turagsarkar/M-SCorporation-Telegram-Based-AI-Service/blob/1a07760558b82a83e70799420acd5b0b07452c37/Error.PNG)
 
+Output in pdf format check the file name output.
 
 # System Setup-
 Telegram Bot Configuration
