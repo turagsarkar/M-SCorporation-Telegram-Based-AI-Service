@@ -1,11 +1,18 @@
 # M-SCorporation-Telegram-Based-AI-Service
 
+
+
 # Telegram Bot
 For access the service visit-  t.me/MSCorporationbot 
 # Dataset
 For access the data sheet click the link-  
-https://docs.google.com/spreadsheets/d/1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEw
-lVv5Bw0/edit?gid=1910807323#gid=1910807323 
+https://docs.google.com/spreadsheets/d/1ICjpI43MMGgnDUMyD8pkdWLLKGiMTWEmLVEwlVv5Bw0/edit?gid=1910807323#gid=1910807323 
+
+# Workflow - 
+
+![img alt] ()
+
+
 
 # System Setup-
 Telegram Bot Configuration
@@ -43,7 +50,11 @@ Step 2: Authenticate using a Google account.
 Step 1: Use callback method for LLM in AI agent
 Step 2: Use error handling trigger.
 Step 3: Coonect with Sheet for update any kind of error.
-Step 4: Add this file into previous file by settings. 
+Step 4: Add this file into previous file by settings.
+
+# User and Bot interaction: 
+
+
 
 
 
