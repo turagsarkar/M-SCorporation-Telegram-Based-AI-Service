@@ -54,7 +54,8 @@ Step 2: Use error handling trigger.
 Step 3: Coonect with Sheet for update any kind of error.
 Step 4: Add this file into previous file by settings.
 
-# User and Bot interaction: 
+# User and Bot interaction:
+Check the output.pdf file.
 
 
 
